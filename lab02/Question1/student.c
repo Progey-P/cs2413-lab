@@ -29,9 +29,11 @@
 #include <stddef.h>  // size_t
 #include <string.h>  // strlen
 
+//assume array wouldnt be bigger than 100
+
 bool isValid(const char *s) {
     // TODO: Implement using a stack.
-    //
+
     // Recommended approach:
     // - Use a char array as a stack to store opening brackets.
     // - Scan the string from left to right:
@@ -54,6 +56,42 @@ bool isValid(const char *s) {
     // Note:
     // - Input contains only bracket characters, per the prompt.
 
-    (void)s; // remove after implementing
-    return false; // placeholder
+    if (s == NULL ){ //corner case check
+        return false;
+    }
+    
+    size_t n= strlen(s); //set n equal to the string length
+    if  (n%2 == 1){ //checks if its odd, an odd array always fails
+        return false;
+    }
+    
+    char stack[n]; //stack with size of strlen, always enough space
+    size_t top=0; 
+    for (size_t i=0; i<n; i++){ //loop to check all elements
+        char c = s[i];
+
+        if (c == '(' || c == '[' || c=='{'){ //checking for open brackets
+            stack [top++] = c;
+            continue;
+        }
+        
+        if (top == 0) return false;
+        char open = stack[top-1]; //check top of the stack and see if it is open or closed
+        
+        switch (c) {  //checks for any mismatches
+            case ')':
+                if (open != '(') return false;
+                break;
+            case ']':
+                if (open != '[') return false;
+                break;
+            case '}':
+                if (open != '{') return false;
+                break;
+            default:
+                return false;
+        }
+        top--; //pop
+    }
+    return top==0; //final check, if empty, return true else false
 }

@@ -27,7 +27,34 @@
 
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
     // TODO: implement
-
+    int i=digitsSize-1; int outputSize; int carry=0; int result; // all variables needed
     
+    while (i>=0 && digits[i] == 9){ //loop to check if I need a bigger array
+        i--;
+    }
+
+    if (i<0){
+        outputSize= digitsSize+1;
+    } else{
+        outputSize= digitsSize;
+    }
+
+    int* out = (int*)malloc(outputSize * sizeof(int)); // allocate memory
+    *returnSize= outputSize; //return size of new array
+
+    carry = 1; //will be adding one in either case
+    int j= outputSize-1, k= digitsSize-1;
+
+    while (k>=0){ //k will run out before j
+        result= digits[k]+carry;
+        out [j]= result%10; //%gives remainder
+        carry= result/10; //will either be 1 or 0
+        j--, k--;
+    }
+
+    if (j>=0){
+        out[j]= carry; //the last index of j will be 1 (the carry)
+    }
+    return out; //return new array
 }
 

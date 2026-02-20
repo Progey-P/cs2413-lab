@@ -15,8 +15,20 @@
 
 
 int majorityElement(int* nums, int numsSize) {
-     // TODO: implement
-
-
+     int i=0; int contender=nums[i]; int count=0; //contender= possible candidate; counter to keep track of reps
+     while (i<numsSize){
+          //I want to loop through the array and keep a count that inc or dec based off the element repetition
+          if (count == 0){ //if count is already at zero
+                    contender = nums[i]; //set contender to the new element
+          }
+          if (contender==nums[i]){
+               count++; //if the contender is found again, increase counter
+          } else{ //if count isn't zero
+               count--; //decrement count and repeat the loop
+          }
+          i++;  
+          }
+     
+     return contender; //return the majority element
 
 }
