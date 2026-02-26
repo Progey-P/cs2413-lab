@@ -14,5 +14,15 @@
 
 int middleNodeValue(struct ListNode *head) {
     // TODO: implement
+    if (head == NULL) return 0;
+    
+    struct ListNode *slow = head; //same set up as last question
+    struct ListNode *fast = head;
 
+    while (fast != NULL && fast->next != NULL){ //slow will always be at middle or mid+1
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    int val = slow->val;
+    return val; //return val at mid
 }
