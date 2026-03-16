@@ -55,7 +55,19 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
+int addNum (struct TreeNode *current, int currentVal){
+    if (current == NULL) return 0; //if empty
+
+    currentVal = (currentVal*10) + current->val; //going down increase tens place
+
+    if (current->left == NULL && current->right == NULL){ //leaf check
+        return currentVal;
+    }
+
+    return addNum (current->left, currentVal) + addNum (current->right, currentVal); 
+}
 
 int sumNumbers(struct TreeNode* root) {
       // TODO: implement
+      return addNum (root, 0);
 }
