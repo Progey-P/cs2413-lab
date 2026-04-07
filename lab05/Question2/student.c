@@ -47,7 +47,23 @@ Return the kth largest element in nums.
 */
 int findKthLargest(int* nums, int numsSize, int k) {
     /* Write your code here */
-    return 0;
+    int *heap = (int*)malloc(k*sizeof(int)); //allocate memory for k size
+    int size = 0; //0 might not be needed
+
+    for (int i=0; i<numsSize; i++){
+        heap [size] = nums[i];
+        heapifyUp(heap, size); 
+        size++;
+        if (size>k){
+            heap [0] = heap[size-1]; //remove min
+            size--;
+            heapifyDown(heap, size, 0);
+        }
+
+    }
+    int result = heap[0];
+    free(heap);
+    return result;
 }
 
 /*
@@ -55,13 +71,23 @@ Optional helper: swap two integers.
 */
 static void swap(int* a, int* b) {
     /* Write your code here if you use this helper */
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 /*
 Optional helper: restore min-heap order from a node upward.
 */
-static void heapifyUp(int* heap, int index) {
+static void heapifyUp(int* heap, int index) { //will make order
     /* Write your code here if you use this helper */
+    while (index>0){
+        int current = (index-1)/2;
+        if (heap[current] <= heap[index]) break;
+
+        swap (&heap[current], &heap[index]); //swap smaller and larger
+        index = current;
+    }
 }
 
 /*
@@ -69,4 +95,15 @@ Optional helper: restore min-heap order from a node downward.
 */
 static void heapifyDown(int* heap, int size, int index) {
     /* Write your code here if you use this helper */
+    while (1){ //loop until breakage
+        int left = (2*index)+1;
+        int right = (2*index)+2;
+        int small = index;
+        if (left < size&&heap[left] < heap[small]) small =left;
+        if (right < size&&heap[right] < heap[small]) small =right;
+        if (small == index) break; //exit condition (no children or smallest)
+
+        swap(&heap[index], &heap[small]); //swap will smallest then go down
+        index = small;
+    }
 }
