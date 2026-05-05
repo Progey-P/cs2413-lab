@@ -1,3 +1,4 @@
+#include <stdlib.h>
 /*
 Question 4: Insertion Sort
 
@@ -21,6 +22,18 @@ Notes:
 
 void insertionSort(int arr[], int size) {
     // TODO: implement insertion sort
-    (void)arr;
-    (void)size;
+    if (arr==NULL || size<2) return;
+
+    for (int i=1; i<size; i++){
+        int temp = arr[i];
+        int j = i-1;
+        
+        while (j>=0 && temp<arr[j]){
+            arr[j+1] = arr[j];
+            j = j-1;  
+        }
+        
+       arr[j+1] = temp;
+    }
 }
+

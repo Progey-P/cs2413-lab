@@ -1,3 +1,4 @@
+#include <stdlib.h>
 /*
 Question 5: Selection Sort
 
@@ -20,9 +21,26 @@ Notes:
 - Do not use any built-in sorting function.
 */
 
+void swap(int* a, int* b);
 void selectionSort(int arr[], int size) {
     // TODO: implement selection sort
-    (void)arr;
-    (void)size;
+    if (arr==NULL || size<2) return;
+
+    for (int i=0; i<size-1; i++){
+        int min = i;
+
+        for (int j=i+1; j<size; j++){
+            if (arr[j] < arr[min]) min = j;
+        }
+        if (min != i){
+            swap (&arr[i], &arr[min]);
+        }
+    }
+}
+
+void swap(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 

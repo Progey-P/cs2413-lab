@@ -1,3 +1,4 @@
+#include <stdlib.h>
 /*
 Question 3: Quick Sort
 
@@ -32,9 +33,41 @@ Notes:
 - The sorting should be done in ascending order.
 */
 
+void quickSortHelper(int arr[], int low, int high);
+int partition(int arr[], int low, int high);
+void swap(int* a, int* b);
+
 void quickSort(int arr[], int size) {
     // TODO: implement quick sort
-    (void)arr;
-    (void)size;
+    if (arr==NULL || size<2) return;
+    quickSortHelper(arr, 0, size-1);
+}
+
+void quickSortHelper(int arr[], int low, int high){
+    if (low<high){
+        int piv = partition(arr, low, high);
+        quickSortHelper(arr, low, piv-1);
+        quickSortHelper(arr, piv+1, high);
+    }
+}
+
+int partition(int arr[], int low, int high){
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j=low; j<high; j++){
+        if (arr[j] <= pivot){
+            i++;
+            swap (&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i+1], &arr[high]);
+    return i+1;
+}
+
+void swap(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
