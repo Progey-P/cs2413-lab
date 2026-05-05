@@ -25,5 +25,13 @@ Hint:
 
 bool isSubsequence(char* s, char* t) {
     // TODO: implement
-
+    int i=0; int j=0;
+    while (t[i] != '\0' && s[j] != '\0'){
+        if (t[i]==s[j]){
+            j++;
+        }
+        i++;
+    }
+    if (s[j] != '\0') return false;
+    return true;
 }
